@@ -9,18 +9,20 @@
 
 
 const {test, expect} = require('@playwright/test');
-test.only('Browser Context Decleration Playwright test',async ({browser})=>
+test('Browser Context Decleration Playwright test',async ({browser})=>
 {
     // We write our code inside this function
     const context = await browser.newContext();
     const page = await context.newPage();
+    const userName= page.locator('input#username');
+    const signIn=page.locator('input#signInBtn');
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
     await expect(page).toHaveTitle('LoginPage Practise | Rahul Shetty Academy');
-    await page.locator('input#username').type("practice");
+    await userName.type("rahulshetty");
     await page.locator("[name='password']").type("practice");
     await page.locator('input#terms').click();
-    await page.locator('input#signInBtn').click();
+    
     /**
     * aşagıda yazılan kod satırında otomasyon edilirken yanlış şifre ve kullanıcı adından kaynaklı
     * bir hata mesajı sergilemekte inspect edip bakıldıgında style attribute name none dan blocka
@@ -33,6 +35,15 @@ test.only('Browser Context Decleration Playwright test',async ({browser})=>
 
     // toContainText() alınan textin bir parçasında olup olmadıgının kontrolunu yapar.
     await expect(page.locator("[style*='block']")).toContainText('username/password.');
+
+    // type - fill
+    await userName.fill("");
+    await userName.fill("rahulshettyacademy");
+    await signIn.click();
+    console.log(await page.locator('div.card-body a').textContent());
+
+
+
 });
 
 test('Page decleration Playwright Test',async ({page})=>
@@ -42,3 +53,6 @@ test('Page decleration Playwright Test',async ({page})=>
     await expect(page).toHaveTitle('Google');
 
 });
+
+
+
