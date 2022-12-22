@@ -1,5 +1,5 @@
 const{test,expect}= require('@playwright/test');
-test.only('VALID login Test rahulshetty Academy',async ({browser})=>{
+test('VALID login Test rahulshetty Academy',async ({browser})=>{
     const context =await browser.newContext();
     const page =  await context.newPage();
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
@@ -20,7 +20,6 @@ test.only('VALID login Test rahulshetty Academy',async ({browser})=>{
     await password.type("learning");
     await termsBox.click();
     await signIn.click();
-
 
     // Alttaki kod satırında eşleşmiş olan 4 farklı web element oldugu için
     // bizlere hata vericek bu sebeple nth(0) methodunu yada .first() methodunu
